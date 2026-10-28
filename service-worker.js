@@ -4,8 +4,7 @@ const APP_SHELL = [
   './index.html',
   './manifest.webmanifest',
   './icons/runner-icon.svg',
-  './icons/runner-icon-180.png',
-  './icons/runner-icon-512.png'
+  './icons/runner-icon-180.png'
 ];
 self.addEventListener('install', event => {
   event.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(APP_SHELL)).then(() => self.skipWaiting()));
