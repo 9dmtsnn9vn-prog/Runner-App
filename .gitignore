@@ -1,0 +1,15 @@
+# Personal activity exports and backups — never commit these to the public repo
+runner-activities-backup.json
+*activity-backup*.json
+*activities-backup*.json
+activity-log*.json
+/activity-logs/
+
+# Editable personal starter data
+/data/runner-data.yaml
+/data/*personal*.yaml
+/data/*local*.yaml
+
+# Local machine noise
+.DS_Store
+*.local.json
