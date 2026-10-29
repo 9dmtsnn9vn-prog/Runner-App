@@ -110,8 +110,8 @@ let raceMode=loadRaceMode();
 function saveRaceMode(mode){raceMode=mode==='10k'?'10k':'marathon';try{localStorage.setItem(raceModeStorageKey(),raceMode)}catch(e){console.warn('Could not save race mode in this browser.',e)}}
 const TENK_DEFAULT_DATE='2027-04-25';
 function tenKDateStorageKey(profile=activeProfile){return profile==='partner'?'runner.partner.10k.target-date.v1':'runner.you.10k.target-date.v1'}
-function getTenKTargetDate(profile=activeProfile){try{const value=localStorage.getItem(tenKDateStorageKey(profile));const match=/^2027-04-(\\d{2})$/.exec(value||'');if(match&&Number(match[1])>=1&&Number(match[1])<=30)return value}catch(e){console.warn('Could not read 10K target date.',e)}return TENK_DEFAULT_DATE}
-function saveTenKTargetDate(value){const match=/^2027-04-(\\d{2})$/.exec(String(value||''));if(!match||Number(match[1])<1||Number(match[1])>30)return false;try{localStorage.setItem(tenKDateStorageKey(),value);return true}catch(e){console.warn('Could not save 10K target date.',e);return false}}
+function getTenKTargetDate(profile=activeProfile){try{const value=localStorage.getItem(tenKDateStorageKey(profile));const match=/^2027-04-(\d{2})$/.exec(value||'');if(match&&Number(match[1])>=1&&Number(match[1])<=30)return value}catch(e){console.warn('Could not read 10K target date.',e)}return TENK_DEFAULT_DATE}
+function saveTenKTargetDate(value){const match=/^2027-04-(\d{2})$/.exec(String(value||''));if(!match||Number(match[1])<1||Number(match[1])>30)return false;try{localStorage.setItem(tenKDateStorageKey(),value);return true}catch(e){console.warn('Could not save 10K target date.',e);return false}}
 function raceGoalDate(mode=raceMode){return new Date((mode==='10k'?getTenKTargetDate():'2027-05-09')+'T00:00:00')}
 function daysToRaceGoal(mode=raceMode){return Math.max(0,Math.ceil((raceGoalDate(mode)-dateOnly(new Date()))/86400000))}
 const PLAN_PREF_KEY='runner.training.preferences.v1';
@@ -176,7 +176,7 @@ const todayMonday=mondayOf(new Date()),dayMonday=mondayOf(d);
 const week=Math.max(0,Math.floor((dayMonday.getTime()-todayMonday.getTime())/604800000));
 const session={...template,date:dateOnly(d)};
 if(raceMode==='10k'){
- const today=dateOnly(new Date()),targetWeekStart=mondayOf(raceGoalDate('10k'));targetWeekStart.setDate(targetWeekStart.getDate()-84);
+ const today=dateOnly(new Date()),targetWeekStart=mondayOf(raceGoalDate('10k'));targetWeekStart.setDate(targetWeekStart.getDate()-77);
  const programmeWeek=dateOnly(d)<targetWeekStart?0:Math.min(12,Math.floor((mondayOf(d)-targetWeekStart)/604800000)+1);
  if(programmeWeek===0){
   if(session.kind==='long'){const baseWeeks=Math.max(0,Math.floor((mondayOf(d)-mondayOf(today))/604800000));const mins=Math.min(60,35+Math.floor(baseWeeks/2)*5);session.minutes=mins;session.duration=mins+' min';session.detail='Base phase before the 12-week 10K cycle: build easy time on feet gradually.'}
@@ -199,11 +199,11 @@ if(raceMode==='10k'){
   if(programmeWeek===12&&session.kind==='recovery'){session.title='Short shakeout or rest';session.duration='15–20 min';session.minutes=15;session.effort='Very easy';session.detail='Race week: rest is equally valid. Do not make up missed training.'}
  }
 }else if(session.kind==='long'&&week>0){const mins=Math.min(90,session.minutes+Math.floor(week/2)*5);session.minutes=mins;session.duration=mins+' min';if(week>=4)session.detail='Keep it conversational and increase time only when your recent weeks feel comfortable.'}
-if(session.kind==='quality'){
+if(raceMode!=='10k'&&session.kind==='quality'){
 if(week<4){session.title='Easy aerobic run';session.duration='25–35 min';session.minutes=30;session.effort='Easy';session.detail='Base phase: keep this fully comfortable for the first four weeks.'}
 else{session.title='Controlled tempo intervals';session.duration='30–40 min';session.minutes=35;session.effort='Controlled, not all-out';session.detail='Only if recovered: warm up, add 2–3 short comfortably-hard blocks with easy recoveries, then cool down. Skip the tempo if this feels premature.'}
 }
-if(session.kind==='strides'){
+if(raceMode!=='10k'&&session.kind==='strides'){
 if(week<4){session.title='Easy recovery run';session.duration='20–30 min';session.minutes=25;session.effort='Easy';session.detail='Keep this gentle during the base phase; strides are optional later.'}
 else{session.title='Easy run + relaxed strides';session.duration='25–35 min';session.minutes=30;session.effort='Easy';session.detail='Only while feeling good: add a few relaxed 15–20 second quicker strides with full easy recovery. Never sprint.'}
 }
