@@ -186,7 +186,7 @@ if(raceMode==='10k'){
   if(session.kind==='quality'){session.title='Easy aerobic run';session.duration='25–35 min';session.minutes=30;session.effort='Easy';session.detail='Base phase: keep this fully comfortable and skip speed work for now.'}
   if(session.kind==='strides'){session.title='Easy run';session.duration='20–30 min';session.minutes=25;session.effort='Easy';session.detail='Base phase: relaxed running only; strides can wait until the routine is consistent.'}
  }else{
-  const longMinutes=[40,45,50,55,50,60,65,60,70,65,55,40][programmeWeek-1];
+  const longMinutes=[40,45,50,55,50,60,65,60,70,60,45,35][programmeWeek-1];
   if(session.kind==='long'){session.minutes=longMinutes;session.duration=longMinutes+' min';session.detail=programmeWeek===12?'Taper week: keep this easy and shorter before race day.':'Easy long run for week '+programmeWeek+' of the 12-week 10K cycle. Stay conversational and shorten if needed.'}
   if(session.kind==='quality'){
    if(programmeWeek<=4){session.title='Easy aerobic run';session.duration='25–35 min';session.minutes=30;session.effort='Easy';session.detail='Specific-plan weeks 1–4: keep every run comfortable before adding tempo.'}
