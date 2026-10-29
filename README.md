@@ -18,7 +18,7 @@ The 10K plan is a suggested starter template, not a medical assessment or person
 
 ## Profiles and privacy
 
-The in-app **You / Partner** selector keeps activity history, plan preferences and race mode in separate browser-local profiles. Selecting Partner on a shared device shows a separate activity history, but this is not cloud sync.
+The in-app **Jacob / Romy** selector keeps activity history, plan preferences and race mode in separate browser-local profiles. Selecting Romy on a shared device shows a separate activity history, but this is not cloud sync.
 
 Your partner can open the same public app URL on a Google Pixel or other Android phone and optionally install it from Chrome. Each phone/browser has its own storage: activities logged on one device will not automatically appear on another.
 
